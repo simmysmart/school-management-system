@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register Admin</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body class="register-page">
+
+    <div class="register-container">
+         <div class="logo-box">
+    <img src="images/logo.jpg" alt="School Logo" class="logo">
+</div>
+
+        <h2>Register Admin</h2>
+
+        <p class="subtitle">
+            Create a new administrator account
+        </p>
+
+        <form id="registerForm">
+
+            <input type="text" id="username" placeholder="Username" required>
+
+            <input type="email" id="email" placeholder="Email Address" required>
+
+            <input type="password" id="password" placeholder="Password" required>
+
+            <!-- Success / Error Message -->
+            <div id="message"></div>
+
+           <button type="submit" class="btn-register">Register</button>
+        </form>
+
+        <div class="register-footer">
+
+            Already have an account?
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+<script>
+
+// ============================================
+// Register Administrator
+// ============================================
+
+document.getElementById("registerForm").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const message = document.getElementById("message");
+
+    message.className = "";
+    message.innerHTML = "";
+
+    const data = {
+
+        username: document.getElementById("username").value.trim(),
+
+        email: document.getElementById("email").value.trim(),
+
+        password: document.getElementById("password").value
+
+    };
+
+    try{
+
+        const response = await fetch("http://localhost:5000/api/auth/register",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify(data)
+
+        });
+
+        const result = await response.json();
+
+        if(result.success){
+
+            message.className = "success-message";
+
+            message.innerHTML = " " + result.message;
+
+            // Clear form
+            document.getElementById("registerForm").reset();
+
+            // Redirect after 2 seconds
+            setTimeout(function(){
+
+                window.location.href = "login.html";
+
+            },2000);
+
+        }
+
+        else{
+
+            message.className = "error-message";
+
+            message.innerHTML = " " + result.message;
+
+        }
+
+    }
+
+    catch(error){
+
+        message.className = "error-message";
+
+        message.innerHTML = " Unable to connect to the server.";
+
+        console.error(error);
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>

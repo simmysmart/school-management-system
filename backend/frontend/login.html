@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+   <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    
+</style>
+<body class="login-page">
+
+<div class="login-container">
+    <div class="sidebar-logo">
+
+    <img src="images/logo.jpg" alt="School Logo"class="sidebar-school-logo">
+
+    <h2>Admin Login</h2>
+
+    <form id="loginForm">
+
+        <input type="text" id="username" placeholder="Username">
+
+        <input type="password" id="password" placeholder="Password">
+
+        <button type="submit">Login</button>
+
+    </form>
+
+</div>
+
+</body>
+<p id="message"></p>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const data = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value
+    };
+
+    try {
+
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const text = await response.text();
+
+        console.log("SERVER RESPONSE:");
+        console.log(text);
+
+        document.getElementById("message").innerText = text;
+
+        const result = JSON.parse(text);
+
+        if (result.success) {
+            localStorage.setItem("token", result.token);
+            window.location.href = "dashboard.html";
+        } else {
+            document.getElementById("message").innerText = result.message;
+        }
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById("message").innerText = error.message;
+    }
+});
+</script>
+
+</body>
+</html>
