@@ -97,7 +97,6 @@ node server.js
 
 ## 📸 Screenshots
 
-You can add screenshots here after uploading the project.
 
 ---
 
