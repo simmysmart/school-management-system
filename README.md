@@ -103,7 +103,7 @@ You can add screenshots here after uploading the project.
 
 ## 👨‍💻 Author
 
-**Simon Ojobo**
+**OJOBO SIMON AKOR**
 
 ---
 
