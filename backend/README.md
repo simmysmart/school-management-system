@@ -97,7 +97,27 @@ node server.js
 
 ## 📸 Screenshots
 
+# 📸 Screenshots
 
+## Login Page
+
+![Login](backend/images/login.png)
+
+## Register Page
+
+![Register](backend/images/register.png)
+
+## Dashboard
+
+![Dashboard](backend/images/dashboard.png)
+
+## Students
+
+![Students](backend/images/addstudent.png)
+
+## Teachers
+
+![Teachers](backend/images/teachers.png)
 ---
 
 ## 👨‍💻 Author
