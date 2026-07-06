@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Classes</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <img src="images/logo.jpg" alt="School Logo" class="sidebar-school-logo">
+
+        <ul>
+
+            <li><a href="dashboard.html"> Dashboard</a></li>
+
+            <li><a href="students.html"> Students</a></li>
+
+            <li><a href="addStudent.html"> Add Student</a></li>
+
+            <li><a href="teachers.html">Teachers</a></li>
+
+            <li><a href="addTeacher.html"> Add Teacher</a></li>
+
+            <li><a href="classes.html" class="active">Classes</a></li>
+
+        </ul>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <div class="topbar">
+
+            <h1>Classes</h1>
+
+            <a href="addClass.html" class="btn">
+                Add Class
+            </a>
+
+        </div>
+
+        <table class="student-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Class Name</th>
+
+                    <th>Class Teacher</th>
+
+                    <th>Date Created</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="classTable">
+
+                <tr>
+
+                    <td colspan="4">
+                        Loading classes...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="classes.js"></script>
+
+</body>
+
+</html>
