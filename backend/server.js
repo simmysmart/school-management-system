@@ -30,6 +30,10 @@ const studentRoutes = require("./routes/studentRoutes");
 const teacherRoutes = require("./routes/teacherRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const classRoutes = require("./routes/classRoutes");
+const subjectRoutes = require("./routes/subjectRoutes");
+const feeRoutes = require("./routes/feeRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
+
 
 
 // =========================================
@@ -62,6 +66,9 @@ app.use("/api/students", studentRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/classes", classRoutes);
+app.use("/api/subjects", subjectRoutes);
+app.use("/api/fees", feeRoutes);
+app.use("/api/payments", paymentRoutes);
 
 
 // =========================================

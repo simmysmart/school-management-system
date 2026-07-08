@@ -1,12 +1,12 @@
-const API_URL = "http://localhost:5000/api/subjects";
+const API_URL = "http://localhost:5000/api/payments";
 
 // ========================================
-// Load Subjects
+// Load Payments
 // ========================================
 
-async function loadSubjects() {
+async function loadPayments() {
 
-    const table = document.getElementById("subjectTable");
+    const table = document.getElementById("paymentTable");
 
     try {
 
@@ -19,7 +19,7 @@ async function loadSubjects() {
             table.innerHTML = `
                 <tr>
                     <td colspan="6">
-                        Unable to load subjects.
+                        Unable to load payments.
                     </td>
                 </tr>
             `;
@@ -33,7 +33,7 @@ async function loadSubjects() {
             table.innerHTML = `
                 <tr>
                     <td colspan="6">
-                        No subjects found.
+                        No payments found.
                     </td>
                 </tr>
             `;
@@ -44,39 +44,27 @@ async function loadSubjects() {
 
         let rows = "";
 
-        result.data.forEach(subject => {
+        result.data.forEach(payment => {
 
             rows += `
 
                 <tr>
 
-                    <td>${subject.subject_name}</td>
+                    <td>${payment.first_name} ${payment.last_name}</td>
 
-                    <td>${subject.subject_code}</td>
+                    <td>${payment.fee_name}</td>
 
-                    <td>${subject.class_name ?? ""}</td>
+                    <td>₦${Number(payment.amount_paid).toLocaleString()}</td>
 
-                    <td>
+                    <td>${payment.payment_method}</td>
 
-                        ${
-                            subject.first_name
-                            ? subject.first_name + " " + subject.last_name
-                            : "Not Assigned"
-                        }
-
-                    </td>
-
-                    <td>
-
-                        ${new Date(subject.created_at).toLocaleDateString()}
-
-                    </td>
+                    <td>${new Date(payment.payment_date).toLocaleDateString()}</td>
 
                     <td>
 
                         <button
                             class="edit-btn"
-                            onclick="editSubject(${subject.id})">
+                            onclick="editPayment(${payment.id})">
 
                             Edit
 
@@ -84,7 +72,7 @@ async function loadSubjects() {
 
                         <button
                             class="delete-btn"
-                            onclick="deleteSubject(${subject.id})">
+                            onclick="deletePayment(${payment.id})">
 
                             Delete
 
@@ -119,22 +107,22 @@ async function loadSubjects() {
 }
 
 // ========================================
-// Edit
+// Edit Payment
 // ========================================
 
-function editSubject(id) {
+function editPayment(id) {
 
-    window.location.href = `editSubject.html?id=${id}`;
+    window.location.href = `editPayment.html?id=${id}`;
 
 }
 
 // ========================================
-// Delete
+// Delete Payment
 // ========================================
 
-async function deleteSubject(id) {
+async function deletePayment(id) {
 
-    if (!confirm("Delete this subject?")) return;
+    if (!confirm("Delete this payment?")) return;
 
     try {
 
@@ -148,7 +136,7 @@ async function deleteSubject(id) {
 
         alert(result.message);
 
-        loadSubjects();
+        loadPayments();
 
     }
 
@@ -156,8 +144,12 @@ async function deleteSubject(id) {
 
         console.error(error);
 
+        alert("Unable to delete payment.");
+
     }
 
 }
 
-loadSubjects();
+// ========================================
+
+loadPayments();

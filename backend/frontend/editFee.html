@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Fee</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <img src="images/logo.jpg" alt="School Logo" class="sidebar-school-logo">
+
+        <ul>
+
+            <li><a href="dashboard.html">Dashboard</a></li>
+
+            <li><a href="students.html">Students</a></li>
+
+            <li><a href="addStudent.html">Add Student</a></li>
+
+            <li><a href="teachers.html">Teachers</a></li>
+
+            <li><a href="addTeacher.html">Add Teacher</a></li>
+
+            <li><a href="classes.html">Classes</a></li>
+
+            <li><a href="addClass.html">Add Class</a></li>
+
+            <li><a href="subjects.html">Subjects</a></li>
+
+            <li><a href="addSubject.html">Add Subject</a></li>
+
+            <li><a href="fees.html" class="active">Fees</a></li>
+
+            <li><a href="addFee.html">Add Fee</a></li>
+
+        </ul>
+
+    </div>
+
+    <!-- Main -->
+
+    <div class="main">
+
+        <div class="topbar">
+
+            <h1>Edit Fee</h1>
+
+        </div>
+
+        <div class="form-card">
+
+            <form id="editFeeForm">
+
+                <div class="form-group">
+
+                    <label>Fee Name</label>
+
+                    <input
+                        type="text"
+                        id="fee_name"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Amount (₦)</label>
+
+                    <input
+                        type="number"
+                        id="amount"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Class</label>
+
+                    <select id="class_id" required>
+
+                        <option>Loading Classes...</option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit" class="btn">
+
+                    Update Fee
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="editFee.js"></script>
+
+</body>
+
+</html>
