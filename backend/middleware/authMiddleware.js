@@ -1,71 +1,100 @@
-// Import the jsonwebtoken package
-// This package is used to verify JWT tokens sent by users.
+// ===========================================================
+// File: backend/middleware/authMiddleware.js
+// Project: School Management System
+// Purpose:
+// Protect routes by verifying JWT token.
+// ===========================================================
+
 const jwt = require("jsonwebtoken");
 
-// Middleware function that runs before protected routes
-const verifyToken = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
 
-    // Get the Authorization header from the request
-    // Example:
-    // Authorization: Bearer eyJhbGciOiJIUzI1Ni...
+    console.log("==================================");
+    console.log("Request URL:", req.originalUrl);
+    console.log("Request Method:", req.method);
+    console.log("Authorization Header:", req.headers.authorization);
+    console.log("Headers:", req.headers);
+    console.log("==================================");
+
+    // ==========================================
+    // Get Authorization Header
+    // ==========================================
+
     const authHeader = req.headers.authorization;
 
-    // If no Authorization header exists,
-    // deny access immediately.
     if (!authHeader) {
+
         return res.status(401).json({
+
             success: false,
             message: "Access denied. No token provided."
+
         });
+
     }
 
-    // Extract only the JWT token.
-    // "Bearer abc123" becomes "abc123"
+    // ==========================================
+    // Validate Bearer Format
+    // ==========================================
+
+    if (!authHeader.startsWith("Bearer ")) {
+
+        return res.status(401).json({
+
+            success: false,
+            message: "Invalid authorization format."
+
+        });
+
+    }
+
+    // ==========================================
+    // Extract Token
+    // ==========================================
+
     const token = authHeader.split(" ")[1];
 
-    // If the token is missing or malformed
     if (!token) {
+
         return res.status(401).json({
+
             success: false,
-            message: "Invalid token."
+            message: "Token missing."
+
         });
+
     }
+
+    // ==========================================
+    // Verify Token
+    // ==========================================
 
     try {
 
-        // Verify that the token was signed
-        // using our application's secret key.
         const decoded = jwt.verify(
+
             token,
-            "myschoolsecretkey"
+            process.env.JWT_SECRET || "myschoolsecretkey"
+
         );
 
-        // Store the decoded user information
-        // inside the request object.
-        // Example:
-        // req.user = {
-        //     id: 1,
-        //     username: "admin",
-        //     role: "admin"
-        // }
         req.user = decoded;
 
-        // Continue to the next middleware or route.
         next();
 
-    } catch (error) {
+    } catch (err) {
 
-        // If verification fails, the token is
-        // expired, invalid, or has been tampered with.
+        console.error("JWT Error:", err.message);
+
         return res.status(401).json({
+
             success: false,
-            message: "Token is invalid or expired."
+            message: "Invalid or expired token."
+
         });
 
     }
 
 };
 
-// Export the middleware so it can be used
-// in any protected route.
-module.exports = verifyToken;
+module.exports = authMiddleware;

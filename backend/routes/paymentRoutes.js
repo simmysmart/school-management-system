@@ -1,17 +1,22 @@
-const express = require("express");
+// ===========================================================
+// File: paymentRoutes.js
+// ===========================================================
 
+const express = require("express");
 const router = express.Router();
+
+const authMiddleware = require("../middleware/authMiddleware");
 
 const paymentController = require("../controllers/paymentController");
 
-router.get("/", paymentController.getPayments);
+router.get("/", authMiddleware, paymentController.getPayments);
 
-router.get("/:id", paymentController.getPayment);
+router.get("/:id", authMiddleware, paymentController.getPayment);
 
-router.post("/", paymentController.addPayment);
+router.post("/", authMiddleware, paymentController.addPayment);
 
-router.put("/:id", paymentController.updatePayment);
+router.put("/:id", authMiddleware, paymentController.updatePayment);
 
-router.delete("/:id", paymentController.deletePayment);
+router.delete("/:id", authMiddleware, paymentController.deletePayment);
 
 module.exports = router;

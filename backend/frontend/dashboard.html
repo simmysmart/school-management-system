@@ -1,35 +1,15 @@
 <!DOCTYPE html>
-
-<!-- ==========================================================
-     Project : School Management System
-     File    : dashboard.html
-     Author  : Simon
-
-     Purpose:
-     This is the main dashboard displayed after a successful
-     administrator login.
-
-     Features:
-     ✔ Protected Dashboard
-     ✔ Sidebar Navigation
-     ✔ Dashboard Statistics
-     ✔ Logout Functionality
-     ✔ Session Validation
-=========================================================== -->
-
 <html lang="en">
 
 <head>
-   <link rel="stylesheet" href="styles.css">
 
-<!-- Character encoding -->
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<!-- Makes the website responsive on phones and tablets -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Browser Tab Title -->
-<title>School Management Dashboard</title>
+    <title>School Management Dashboard</title>
+
+    <link rel="stylesheet" href="styles.css">
 
 </head>
 
@@ -37,31 +17,50 @@
 
 <div class="dashboard">
 
+    <!-- Sidebar -->
+
     <div class="sidebar">
 
-       <div class="sidebar-logo">
+        <div class="sidebar-logo">
 
-    <img src="images/logo.jpg" alt="School Logo" class="sidebar-school-logo">
+            <img src="images/logo.jpg"
+                 alt="School Logo"
+                 class="sidebar-school-logo">
 
-    <marquee><p>application is open now apply..</p></marquee>
+            <marquee>
+                <p>Application is open now, apply...</p>
+            </marquee>
 
-</div>
+        </div>
 
         <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-           <li><a href="students.html">Students</a></li>
-            <li><a href="Teachers.html">Teachers</a></li>
+
+            <li><a href="dashboard.html" class="active">Dashboard</a></li>
+
+            <li><a href="students.html">Students</a></li>
+
+            <li><a href="teachers.html">Teachers</a></li>
+
             <li><a href="classes.html">Classes</a></li>
-            <li><a href="subject.html">Subject</a></li>
+
+            <li><a href="subjects.html">Subjects</a></li>
+
             <li><a href="attendance.html">Attendance</a></li>
-            <li><a href="result.html">Results</a></li>
-            <li><a href="fees.html" class="active">Fees</a></li>
-            <li><a href="addFee.html">Add Fee</a></li>
-             <li><a href="payments.html">Payments</a></li>
-           
+
+            <li><a href="results.html">Results</a></li>
+
+            <li><a href="fees.html">Fees</a></li>
+
+            <li><a href="payments.html">Payments</a></li>
+
+            <li><a href="reportCards.html">Report Cards</a></li>
+            <button class="logout-btn" onclick="logout()"> Logout</button>
+
         </ul>
 
     </div>
+
+    <!-- Main -->
 
     <div class="main">
 
@@ -69,40 +68,66 @@
 
             <h1>Admin Dashboard</h1>
 
-            <button id="logoutBtn" class="logout-btn">Logout</button>
+            <button
+    class="logout-btn"
+    onclick="logout()">
+
+    Logout
+
+</button>
 
         </div>
+
+        <!-- Dashboard Cards -->
 
         <div class="cards">
 
             <div class="card">
-                <h2>0</h2>
+
+                <h2 id="totalStudents">0</h2>
+
                 <p>Students</p>
+
             </div>
 
             <div class="card">
-                <h2>0</h2>
+
+                <h2 id="totalTeachers">0</h2>
+
                 <p>Teachers</p>
+
             </div>
 
             <div class="card">
-                <h2>0</h2>
+
+                <h2 id="totalClasses">0</h2>
+
                 <p>Classes</p>
+
             </div>
 
             <div class="card">
-                <h2>0</h2>
+
+                <h2 id="totalSubjects">0</h2>
+
                 <p>Subjects</p>
+
             </div>
 
             <div class="card">
-                <h2>₦0</h2>
+
+                <h2 id="totalPayments">₦0</h2>
+
                 <p>Payments</p>
+
             </div>
 
             <div class="card">
-                <h2>0%</h2>
+
+                <h2 id="attendanceRate">0%</h2>
+
                 <p>Attendance</p>
+
             </div>
 
         </div>
@@ -110,63 +135,26 @@
     </div>
 
 </div>
-<script>
-document.getElementById("logoutBtn").addEventListener("click", function () {
 
-    // Remove saved login token
-    localStorage.removeItem("token");
-
-    // Redirect to login page
-    window.location.href = "login.html";
-
-});
-async function loadStats() {
-
-    try {
-
-        const response = await fetch("http://localhost:5000/api/dashboard/stats");
-        const result = await response.json();
-
-        if (result.success) {
-
-            document.querySelectorAll(".card h2")[0].innerText = result.stats.students;
-            document.querySelectorAll(".card h2")[1].innerText = result.stats.teachers;
-            document.querySelectorAll(".card h2")[2].innerText = result.stats.classes;
-
-        }
-
-    } catch (error) {
-        console.error(error);
-    }
-
-}
-
-loadStats();
-</script>
-
-</body>
-
-<!-- ==========================================================
-     FOOTER
-========================================================== -->
+<!-- Footer -->
 
 <footer class="footer">
 
     <div class="footer-container">
 
-        <!-- School Information -->
         <div class="footer-section">
 
             <h3>School Management System</h3>
 
             <p>
-                Providing quality education through modern technology<br>
+
+                Providing quality education through modern technology
                 and efficient school administration.
+
             </p>
 
         </div>
 
-        <!-- Contact Information -->
         <div class="footer-section">
 
             <h3>Contact Us</h3>
@@ -179,7 +167,6 @@ loadStats();
 
         </div>
 
-        <!-- Quick Links -->
         <div class="footer-section">
 
             <h3>Quick Links</h3>
@@ -199,15 +186,37 @@ loadStats();
     <div class="footer-bottom">
 
         <p>
-            © 2026 School Management System. All Rights Reserved.
+
+            © 2026 School Management System.
+            All Rights Reserved.
+
         </p>
 
         <p>
-            Developed by <strong>SimmyTech</strong>
+
+            Developed by
+            <strong>SimmyTech</strong>
+
         </p>
 
     </div>
 
 </footer>
+
+<!-- Scripts -->
+
+<script src="js/config.js"></script>
+
+<script src="js/api.js"></script>
+
+<script src="js/helpers.js"></script>
+
+<script src="js/auth.js"></script>
+
+<script src="js/logout.js"></script>
+
+<script src="js/dashboard.js"></script>
+
+</body>
 
 </html>

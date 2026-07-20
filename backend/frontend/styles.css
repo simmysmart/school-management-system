@@ -11,6 +11,29 @@
    Removes browser default spacing.
    ========================================================== */
 
+/* ======================================
+   Dashboard Background
+====================================== */
+
+.dashboard {
+
+  /*  min-height: 100vh;
+
+    background-image: linear-gradient(
+        rgba(0,0,0,.55),
+        rgba(0,0,0,.55)
+    ),
+url("images/logo.jpg"); 
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-repeat: no-repeat;
+
+    background-attachment: fixed; */
+
+}
 *{
     margin:0;
     padding:0;
@@ -652,8 +675,17 @@ img{
 /* ==========================================================
    LOGIN PAGE
 ========================================================== */
+/* ======================================
+   Login Background
+====================================== */
 
 .login-page{
+
+    margin:0;
+
+    padding:0;
+
+    min-height:100vh;
 
     display:flex;
 
@@ -661,9 +693,36 @@ img{
 
     align-items:center;
 
-    min-height:100vh;
+    background-image:
+        linear-gradient(
+            rgba(0,0,0,.55),
+            rgba(0,0,0,.55)
+        ),
+        url("images/login.jpg");
 
-    background:linear-gradient(135deg,#1E3A8A,#2563EB);
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    background-attachment:fixed;
+
+}
+
+.login-container{
+
+    width:420px;
+
+    background:rgba(255,255,255,.92);
+
+    border-radius:15px;
+
+    padding:35px;
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
 
 }
 
@@ -671,20 +730,6 @@ img{
 /* ==========================================================
    LOGIN CONTAINER
 ========================================================== */
-
-.login-container{
-
-    width:400px;
-
-    background:#fff;
-
-    padding:35px;
-
-    border-radius:15px;
-
-    box-shadow:0 20px 40px rgba(0,0,0,.2);
-
-}
 
 
 /* ==========================================================
@@ -779,6 +824,19 @@ img{
 .login-container button:hover{
 
     background:var(--primary-dark);
+
+}
+.login-message{
+
+    min-height:20px;
+
+    margin:15px 0;
+
+    text-align:center;
+
+    font-weight:bold;
+
+    font-size:15px;
 
 }
 /* ==========================================
@@ -1998,4 +2056,63 @@ img{
 }
 a {
     text-decoration: none;
+}
+.report-container{
+
+    width:90%;
+
+    margin:30px auto;
+
+    background:#fff;
+
+    padding:30px;
+
+    border-radius:10px;
+
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+
+}
+
+.report-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.report-logo{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+}
+
+.student-details{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+    margin:20px 0;
+
+}
+
+.summary{
+
+    margin-top:25px;
+
+}
+
+.comments{
+
+    margin-top:25px;
+
 }

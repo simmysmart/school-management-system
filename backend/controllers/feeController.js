@@ -3,7 +3,6 @@ const db = require("../db");
 // =========================================
 // Get All Fees
 // =========================================
-
 exports.getFees = (req, res) => {
 
     const sql = `
@@ -15,7 +14,7 @@ exports.getFees = (req, res) => {
             classes.class_name
         FROM fees
         LEFT JOIN classes
-        ON fees.class_id = classes.id
+            ON fees.class_id = classes.id
         ORDER BY fees.fee_name ASC
     `;
 
@@ -42,25 +41,20 @@ exports.getFees = (req, res) => {
 // =========================================
 // Add Fee
 // =========================================
-
 exports.addFee = (req, res) => {
 
     const {
-
         fee_name,
         amount,
         class_id
-
     } = req.body;
 
+    // Validation
     if (!fee_name || !amount || !class_id) {
 
         return res.status(400).json({
-
             success: false,
-
-            message: "All fields are required."
-
+            message: "Fee name, amount and class are required."
         });
 
     }
@@ -71,42 +65,30 @@ exports.addFee = (req, res) => {
         VALUES (?, ?, ?)
     `;
 
-    db.query(sql,
-
+    db.query(
+        sql,
         [
-
             fee_name,
-
             amount,
-
             class_id
-
         ],
-
-        (err, results) => {
+        (err) => {
 
             if (err) {
 
                 return res.status(500).json({
-
                     success: false,
-
                     message: err.message
-
                 });
 
             }
 
             res.json({
-
                 success: true,
-
                 message: "Fee added successfully."
-
             });
 
         }
-
     );
 
 };
@@ -114,25 +96,18 @@ exports.addFee = (req, res) => {
 // =========================================
 // Get Single Fee
 // =========================================
-
 exports.getFeeById = (req, res) => {
 
-    const sql = "SELECT * FROM fees WHERE id = ?";
-
-    db.query(sql,
-
+    db.query(
+        "SELECT * FROM fees WHERE id = ?",
         [req.params.id],
-
         (err, results) => {
 
             if (err) {
 
                 return res.status(500).json({
-
                     success: false,
-
                     message: err.message
-
                 });
 
             }
@@ -140,25 +115,18 @@ exports.getFeeById = (req, res) => {
             if (results.length === 0) {
 
                 return res.status(404).json({
-
                     success: false,
-
                     message: "Fee not found."
-
                 });
 
             }
 
             res.json({
-
                 success: true,
-
                 data: results[0]
-
             });
 
         }
-
     );
 
 };
@@ -166,18 +134,23 @@ exports.getFeeById = (req, res) => {
 // =========================================
 // Update Fee
 // =========================================
-
 exports.updateFee = (req, res) => {
 
     const {
-
         fee_name,
-
         amount,
-
         class_id
-
     } = req.body;
+
+    // Validation
+    if (!fee_name || !amount || !class_id) {
+
+        return res.status(400).json({
+            success: false,
+            message: "Fee name, amount and class are required."
+        });
+
+    }
 
     const sql = `
         UPDATE fees
@@ -189,45 +162,30 @@ exports.updateFee = (req, res) => {
     `;
 
     db.query(
-
         sql,
-
         [
-
             fee_name,
-
             amount,
-
             class_id,
-
             req.params.id
-
         ],
-
-        (err, results) => {
+        (err) => {
 
             if (err) {
 
                 return res.status(500).json({
-
                     success: false,
-
                     message: err.message
-
                 });
 
             }
 
             res.json({
-
                 success: true,
-
                 message: "Fee updated successfully."
-
             });
 
         }
-
     );
 
 };
@@ -235,41 +193,28 @@ exports.updateFee = (req, res) => {
 // =========================================
 // Delete Fee
 // =========================================
-
 exports.deleteFee = (req, res) => {
 
-    const sql = "DELETE FROM fees WHERE id = ?";
-
     db.query(
-
-        sql,
-
+        "DELETE FROM fees WHERE id = ?",
         [req.params.id],
-
-        (err, results) => {
+        (err) => {
 
             if (err) {
 
                 return res.status(500).json({
-
                     success: false,
-
                     message: err.message
-
                 });
 
             }
 
             res.json({
-
                 success: true,
-
                 message: "Fee deleted successfully."
-
             });
 
         }
-
     );
 
 };

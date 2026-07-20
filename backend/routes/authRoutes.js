@@ -1,3 +1,8 @@
+// ==========================================================
+// File: authRoutes.js
+// Project: School Management System
+// ==========================================================
+
 const express = require("express");
 const router = express.Router();
 
@@ -6,28 +11,23 @@ const {
     loginAdmin
 } = require("../controllers/authController");
 
-// Import validation middleware
+const loginLimiter = require("../middleware/loginLimiter");
+
 const {
-    registerValidation,
-    validate
+    loginValidator
 } = require("../validators/authValidator");
 
-// ===========================
-// Admin Registration Route
-// ===========================
+// ==========================================
+// Register Admin
+// ==========================================
+
 router.post(
     "/register",
-    registerValidation,
-    validate,
     registerAdmin
 );
 
-// ===========================
-// Admin Login Route
-// ===========================
-router.post(
-    "/login",
-    loginAdmin
-);
-
+// ==========================================
+// Login Admin
+// ==========================================
+router.post("/login", loginAdmin);
 module.exports = router;

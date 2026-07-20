@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Report Card</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<div class="report-container">
+
+    <div class="report-header">
+
+        <img src="images/logo.jpg" class="report-logo">
+
+        <div>
+
+            <h1>SIMMY SMART COLLEGE</h1>
+
+            <p>School Management System</p>
+
+            <p>Student Report Card</p>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="student-details">
+
+        <div>
+
+            <strong>Name:</strong>
+
+            <span id="studentName"></span>
+
+        </div>
+
+        <div>
+
+            <strong>Admission No:</strong>
+
+            <span id="admissionNumber"></span>
+
+        </div>
+
+        <div>
+
+            <strong>Class:</strong>
+
+            <span id="studentClass"></span>
+
+        </div>
+
+        <div>
+
+            <strong>Term:</strong>
+
+            <span id="term"></span>
+
+        </div>
+
+        <div>
+
+            <strong>Session:</strong>
+
+            <span id="session"></span>
+
+        </div>
+
+    </div>
+
+    <table class="student-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Subject</th>
+
+                <th>CA</th>
+
+                <th>Exam</th>
+
+                <th>Total</th>
+
+                <th>Grade</th>
+
+                <th>Remark</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="reportTable">
+
+            <tr>
+
+                <td colspan="6">
+
+                    Loading Report...
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <div class="summary">
+
+        <h3>Total Score:
+            <span id="totalScore"></span>
+        </h3>
+
+        <h3>Average:
+            <span id="averageScore"></span>
+        </h3>
+
+        <h3>Position:
+            <span id="position"></span>
+        </h3>
+
+    </div>
+
+    <div class="comments">
+
+        <p>
+
+            <strong>Teacher's Comment:</strong>
+
+            <span id="teacherComment"></span>
+
+        </p>
+
+        <p>
+
+            <strong>Principal's Comment:</strong>
+
+            <span id="principalComment"></span>
+
+        </p>
+
+    </div>
+
+    <br>
+
+    <button class="btn" onclick="window.print()">
+
+        <button id="logoutBtn" class="logout-btn">Logout</button>
+
+        Print Report Card
+
+    </button>
+
+</div>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/logout.js"></script>
+
+<!-- Page specific JS -->
+<script src="js/dashboard.js"></script>
+
+<!-- Page specific JS -->
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

@@ -1,8 +1,15 @@
+// ===========================================================
+// File: paymentController.js
+// Project: School Management System
+// Purpose:
+// Handles all Payment CRUD operations.
+// ===========================================================
+
 const db = require("../db");
 
-// ===========================
-// Get All Payments
-// ===========================
+// ===========================================================
+// GET ALL PAYMENTS
+// ===========================================================
 exports.getPayments = (req, res) => {
 
     const sql = `
@@ -15,59 +22,86 @@ exports.getPayments = (req, res) => {
             payments.payment_method,
             payments.payment_date
         FROM payments
-        JOIN students ON payments.student_id = students.id
-        JOIN fees ON payments.fee_id = fees.id
+        INNER JOIN students
+            ON payments.student_id = students.id
+        INNER JOIN fees
+            ON payments.fee_id = fees.id
         ORDER BY payments.id DESC
     `;
 
     db.query(sql, (err, results) => {
 
         if (err) {
+
             return res.status(500).json({
+
                 success: false,
                 message: err.message
+
             });
+
         }
 
         res.json({
+
             success: true,
             data: results
+
         });
 
     });
 
 };
 
-// ===========================
-// Get One Payment
-// ===========================
+// ===========================================================
+// GET SINGLE PAYMENT
+// ===========================================================
 exports.getPayment = (req, res) => {
 
-    db.query(
-        "SELECT * FROM payments WHERE id=?",
-        [req.params.id],
-        (err, results) => {
+    const sql = `
+        SELECT *
+        FROM payments
+        WHERE id = ?
+    `;
 
-            if (err) {
-                return res.status(500).json({
-                    success:false,
-                    message:err.message
-                });
-            }
+    db.query(sql, [req.params.id], (err, results) => {
 
-            res.json({
-                success:true,
-                data:results[0]
+        if (err) {
+
+            return res.status(500).json({
+
+                success: false,
+                message: err.message
+
             });
 
         }
-    );
+
+        if (results.length === 0) {
+
+            return res.status(404).json({
+
+                success: false,
+                message: "Payment not found."
+
+            });
+
+        }
+
+        res.json({
+
+            success: true,
+            data: results[0]
+
+        });
+
+    });
 
 };
 
-// ===========================
-// Add Payment
-// ===========================
+// ===========================================================
+// ADD PAYMENT
+// ===========================================================
 exports.addPayment = (req, res) => {
 
     const {
@@ -80,28 +114,59 @@ exports.addPayment = (req, res) => {
 
     } = req.body;
 
-    db.query(
+    if (
 
-        `INSERT INTO payments
-        (student_id,fee_id,amount_paid,payment_method,payment_date)
-        VALUES(?,?,?,?,?)`,
+        !student_id ||
+        !fee_id ||
+        !amount_paid ||
+        !payment_method ||
+        !payment_date
 
-        [
+    ) {
+
+        return res.status(400).json({
+
+            success: false,
+            message: "All fields are required."
+
+        });
+
+    }
+
+    const sql = `
+        INSERT INTO payments
+        (
             student_id,
             fee_id,
             amount_paid,
             payment_method,
             payment_date
+        )
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(
+
+        sql,
+
+        [
+
+            student_id,
+            fee_id,
+            amount_paid,
+            payment_method,
+            payment_date
+
         ],
 
-        (err)=>{
+        (err) => {
 
-            if(err){
+            if (err) {
 
                 return res.status(500).json({
 
-                    success:false,
-                    message:err.message
+                    success: false,
+                    message: err.message
 
                 });
 
@@ -109,8 +174,8 @@ exports.addPayment = (req, res) => {
 
             res.json({
 
-                success:true,
-                message:"Payment added successfully"
+                success: true,
+                message: "Payment added successfully."
 
             });
 
@@ -120,10 +185,10 @@ exports.addPayment = (req, res) => {
 
 };
 
-// ===========================
-// Update Payment
-// ===========================
-exports.updatePayment = (req,res)=>{
+// ===========================================================
+// UPDATE PAYMENT
+// ===========================================================
+exports.updatePayment = (req, res) => {
 
     const {
 
@@ -133,18 +198,24 @@ exports.updatePayment = (req,res)=>{
         payment_method,
         payment_date
 
-    }=req.body;
+    } = req.body;
+
+    const sql = `
+        UPDATE payments
+        SET
+
+            student_id = ?,
+            fee_id = ?,
+            amount_paid = ?,
+            payment_method = ?,
+            payment_date = ?
+
+        WHERE id = ?
+    `;
 
     db.query(
 
-        `UPDATE payments
-        SET
-        student_id=?,
-        fee_id=?,
-        amount_paid=?,
-        payment_method=?,
-        payment_date=?
-        WHERE id=?`,
+        sql,
 
         [
 
@@ -157,14 +228,14 @@ exports.updatePayment = (req,res)=>{
 
         ],
 
-        (err)=>{
+        (err) => {
 
-            if(err){
+            if (err) {
 
                 return res.status(500).json({
 
-                    success:false,
-                    message:err.message
+                    success: false,
+                    message: err.message
 
                 });
 
@@ -172,8 +243,8 @@ exports.updatePayment = (req,res)=>{
 
             res.json({
 
-                success:true,
-                message:"Payment updated successfully"
+                success: true,
+                message: "Payment updated successfully."
 
             });
 
@@ -183,39 +254,36 @@ exports.updatePayment = (req,res)=>{
 
 };
 
-// ===========================
-// Delete Payment
-// ===========================
-exports.deletePayment=(req,res)=>{
+// ===========================================================
+// DELETE PAYMENT
+// ===========================================================
+exports.deletePayment = (req, res) => {
 
-    db.query(
+    const sql = `
+        DELETE FROM payments
+        WHERE id = ?
+    `;
 
-        "DELETE FROM payments WHERE id=?",
+    db.query(sql, [req.params.id], (err) => {
 
-        [req.params.id],
+        if (err) {
 
-        (err)=>{
+            return res.status(500).json({
 
-            if(err){
-
-                return res.status(500).json({
-
-                    success:false,
-                    message:err.message
-
-                });
-
-            }
-
-            res.json({
-
-                success:true,
-                message:"Payment deleted successfully"
+                success: false,
+                message: err.message
 
             });
 
         }
 
-    );
+        res.json({
+
+            success: true,
+            message: "Payment deleted successfully."
+
+        });
+
+    });
 
 };

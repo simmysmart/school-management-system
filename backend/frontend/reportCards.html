@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Report Cards</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <img src="images/logo.jpg" class="sidebar-school-logo">
+
+        <ul>
+
+            <li><a href="dashboard.html">Dashboard</a></li>
+
+            <li><a href="students.html">Students</a></li>
+
+            <li><a href="teachers.html">Teachers</a></li>
+
+            <li><a href="classes.html">Classes</a></li>
+
+            <li><a href="subjects.html">Subjects</a></li>
+
+            <li><a href="fees.html">Fees</a></li>
+
+            <li><a href="payments.html">Payments</a></li>
+
+            <li><a href="results.html">Results</a></li>
+            <li><a href="reportCards.html" class="active">Report Cards</a></li>
+
+        </ul>
+
+    </div>
+
+    <!-- Main -->
+
+    <div class="main">
+
+        <div class="topbar">
+
+            <h1>Generate Report Card</h1>
+
+        </div>
+
+        <div class="form-card">
+
+            <form id="reportForm">
+
+                <div class="form-group">
+
+                    <label>Student</label>
+
+                    <select id="student_id" required>
+
+                        <option value="">Loading Students...</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Term</label>
+
+                    <select id="term" required>
+
+                        <option value="">Select Term</option>
+
+                        <option value="First">First Term</option>
+
+                        <option value="Second">Second Term</option>
+
+                        <option value="Third">Third Term</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Session</label>
+
+                    <input
+                        type="text"
+                        id="session"
+                        placeholder="2025/2026"
+                        required>
+
+                </div>
+
+                <button type="submit" class="btn">
+
+                    Generate Report Card
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/logout.js"></script>
+
+<!-- Page specific JS -->
+<script src="js/dashboard.js"></script>
+</body>
+
+</html>

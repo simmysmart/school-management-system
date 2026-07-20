@@ -4,7 +4,9 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Add Subject</title>
 
@@ -17,9 +19,12 @@
 <div class="dashboard">
 
     <!-- Sidebar -->
+
     <div class="sidebar">
 
-        <img src="images/logo.jpg" alt="School Logo" class="sidebar-school-logo">
+        <img src="images/logo.jpg"
+             alt="School Logo"
+             class="sidebar-school-logo">
 
         <ul>
 
@@ -41,16 +46,35 @@
 
             <li><a href="addSubject.html" class="active">Add Subject</a></li>
 
+            <li><a href="attendance.html">Attendance</a></li>
+
+            <li><a href="results.html">Results</a></li>
+
+            <li><a href="fees.html">Fees</a></li>
+
+            <li><a href="payments.html">Payments</a></li>
+
+            <li><a href="reportCards.html">Report Cards</a></li>
+
         </ul>
 
     </div>
 
-    <!-- Main Content -->
+    <!-- Main -->
+
     <div class="main">
 
         <div class="topbar">
 
             <h1>Add Subject</h1>
+
+            <button
+                id="logoutBtn"
+                class="logout-btn">
+
+                Logout
+
+            </button>
 
         </div>
 
@@ -65,7 +89,6 @@
                     <input
                         type="text"
                         id="subject_name"
-                        placeholder="Enter Subject Name"
                         required>
 
                 </div>
@@ -77,7 +100,6 @@
                     <input
                         type="text"
                         id="subject_code"
-                        placeholder="Example: MTH101"
                         required>
 
                 </div>
@@ -86,9 +108,13 @@
 
                     <label>Class</label>
 
-                    <select id="class_id" required>
+                    <select
+                        id="class_id"
+                        required>
 
-                        <option value="">Loading Classes...</option>
+                        <option value="">
+                            Loading Classes...
+                        </option>
 
                     </select>
 
@@ -98,15 +124,20 @@
 
                     <label>Teacher</label>
 
-                    <select id="teacher_id">
+                    <select
+                        id="teacher_id">
 
-                        <option value="">Loading Teachers...</option>
+                        <option value="">
+                            Loading Teachers...
+                        </option>
 
                     </select>
 
                 </div>
 
-                <button type="submit" class="btn">
+                <button
+                    type="submit"
+                    class="btn">
 
                     Save Subject
 
@@ -114,181 +145,25 @@
 
             </form>
 
+            <div id="message"></div>
+
         </div>
 
     </div>
 
 </div>
 
-<script>
+<script src="js/config.js"></script>
 
-const API = "http://localhost:5000/api";
+<script src="js/api.js"></script>
 
-// ===============================
-// Load Classes
-// ===============================
+<script src="js/helpers.js"></script>
 
-async function loadClasses() {
+<script src="js/auth.js"></script>
 
-    const select = document.getElementById("class_id");
+<script src="js/logout.js"></script>
 
-    try {
-
-        const res = await fetch(API + "/classes");
-
-        const result = await res.json();
-
-        console.log("Class API Response:", result);
-
-        let html = '<option value="">Select Class</option>';
-
-        if (result.success && Array.isArray(result.data)) {
-
-            result.data.forEach(c => {
-
-                html += `
-                    <option value="${c.id}">
-                        ${c.class_name}
-                    </option>
-                `;
-
-            });
-
-        } else {
-
-            html = '<option value="">No Classes Found</option>';
-
-        }
-
-        select.innerHTML = html;
-
-    }
-
-    catch (err) {
-
-        console.error(err);
-
-        select.innerHTML = '<option value="">Unable to load classes</option>';
-
-    }
-
-}
-// ===============================
-// Load Teachers
-// ===============================
-
-async function loadTeachers() {
-
-    const select = document.getElementById("teacher_id");
-
-    try {
-
-        const res = await fetch(API + "/teachers");
-
-        const result = await res.json();
-
-        console.log("Teacher API Response:", result);
-
-        let html = '<option value="">Select Teacher</option>';
-
-        if (result.success && Array.isArray(result.teachers)) {
-
-            result.teachers.forEach(t => {
-
-                html += `
-                    <option value="${t.id}">
-                        ${t.first_name} ${t.last_name}
-                    </option>
-                `;
-
-            });
-
-        } else {
-
-            html = '<option value="">No Teachers Found</option>';
-
-        }
-
-        select.innerHTML = html;
-
-    }
-
-    catch (err) {
-
-        console.error(err);
-
-        select.innerHTML = '<option value="">Unable to load teachers</option>';
-
-    }
-
-}
-// ===============================
-// Save Subject
-// ===============================
-
-document.getElementById("subjectForm").addEventListener("submit", async function(e){
-
-    e.preventDefault();
-
-    const data = {
-
-        subject_name: document.getElementById("subject_name").value,
-
-        subject_code: document.getElementById("subject_code").value,
-
-        class_id: document.getElementById("class_id").value,
-
-        teacher_id: document.getElementById("teacher_id").value || null
-
-    };
-
-    try{
-
-        const res = await fetch(API + "/subjects",{
-
-            method:"POST",
-
-            headers:{
-                "Content-Type":"application/json"
-            },
-
-            body:JSON.stringify(data)
-
-        });
-
-        const result = await res.json();
-
-        if(result.success){
-
-            alert("Subject added successfully!");
-
-            window.location.href = "subjects.html";
-
-        }else{
-
-            alert(result.message);
-
-        }
-
-    }
-
-    catch(err){
-
-        console.log(err);
-
-        alert("Server Error");
-
-    }
-
-});
-
-// Load dropdowns
-
-loadClasses();
-
-loadTeachers();
-
-</script>
+<script src="js/addSubject.js"></script>
 
 </body>
 

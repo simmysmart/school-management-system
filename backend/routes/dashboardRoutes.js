@@ -1,8 +1,31 @@
+// ===========================================================
+// File: dashboardRoutes.js
+// Project: School Management System
+// Purpose:
+// Dashboard Routes
+// ===========================================================
+
 const express = require("express");
+
 const router = express.Router();
 
-const { getStats } = require("../controllers/dashboardController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.get("/stats", getStats);
+const dashboardController = require("../controllers/dashboardController");
+
+// ===========================================================
+// GET DASHBOARD STATISTICS
+// GET /api/dashboard/stats
+// ===========================================================
+
+router.get(
+
+    "/stats",
+
+    authMiddleware,
+
+    dashboardController.getStats
+
+);
 
 module.exports = router;

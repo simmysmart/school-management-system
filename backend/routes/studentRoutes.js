@@ -1,6 +1,14 @@
-const express = require("express");
+// ===========================================================
+// File: studentRoutes.js
+// Project: School Management System
+// Purpose:
+// Handles all student-related routes.
+// ===========================================================
 
+const express = require("express");
 const router = express.Router();
+
+const authMiddleware = require("../middleware/authMiddleware");
 
 const {
     addStudent,
@@ -10,19 +18,34 @@ const {
     deleteStudent
 } = require("../controllers/studentController");
 
-// Add Student
-router.post("/add", addStudent);
+// ===========================================================
+// ADD STUDENT
+// POST /api/students/add
+// ===========================================================
+router.post("/add", authMiddleware, addStudent);
 
-// Get All Students
-router.get("/", getStudents);
+// ===========================================================
+// GET ALL STUDENTS
+// GET /api/students
+// ===========================================================
+router.get("/", authMiddleware, getStudents);
 
-// Get One Student
-router.get("/:id", getStudentById);
+// ===========================================================
+// GET SINGLE STUDENT
+// GET /api/students/:id
+// ===========================================================
+router.get("/:id", authMiddleware, getStudentById);
 
-// Update Student
-router.put("/:id", updateStudent);
+// ===========================================================
+// UPDATE STUDENT
+// PUT /api/students/:id
+// ===========================================================
+router.put("/:id", authMiddleware, updateStudent);
 
-// Delete Student
-router.delete("/:id", deleteStudent);
+// ===========================================================
+// DELETE STUDENT
+// DELETE /api/students/:id
+// ===========================================================
+router.delete("/:id", authMiddleware, deleteStudent);
 
 module.exports = router;

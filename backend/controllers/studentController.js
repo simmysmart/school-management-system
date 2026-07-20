@@ -1,16 +1,20 @@
-// =========================================
-// Student Controller
+// ===========================================================
+// File: studentController.js
+// Project: School Management System
+// Purpose:
 // Handles Student CRUD Operations
-// =========================================
+// ===========================================================
 
 const db = require("../db");
 
-// =========================================
-// Add Student
-// =========================================
+// ===========================================================
+// ADD STUDENT
+// ===========================================================
+
 exports.addStudent = (req, res) => {
 
     const {
+
         admission_number,
         first_name,
         last_name,
@@ -20,6 +24,7 @@ exports.addStudent = (req, res) => {
         phone,
         email,
         address
+
     } = req.body;
 
     const sql = `
@@ -39,8 +44,11 @@ exports.addStudent = (req, res) => {
     `;
 
     db.query(
+
         sql,
+
         [
+
             admission_number,
             first_name,
             last_name,
@@ -50,96 +58,139 @@ exports.addStudent = (req, res) => {
             phone,
             email,
             address
+
         ],
+
         (err) => {
 
             if (err) {
+
                 return res.status(500).json({
+
                     success: false,
+
                     message: err.message
+
                 });
+
             }
 
             res.json({
+
                 success: true,
+
                 message: "Student added successfully."
+
             });
 
         }
+
     );
 
 };
 
-// =========================================
-// Get All Students
-// =========================================
+// ===========================================================
+// GET ALL STUDENTS
+// ===========================================================
+
 exports.getStudents = (req, res) => {
 
-    db.query(
-        "SELECT * FROM students ORDER BY id DESC",
-        (err, results) => {
+    const sql = `
+        SELECT *
+        FROM students
+        ORDER BY id DESC
+    `;
 
-            if (err) {
-                return res.status(500).json({
-                    success: false,
-                    message: err.message
-                });
-            }
+    db.query(sql, (err, results) => {
 
-            res.json({
-                success: true,
-                students: results
+        if (err) {
+
+            return res.status(500).json({
+
+                success: false,
+
+                message: err.message
+
             });
 
         }
-    );
+
+        res.json({
+
+            success: true,
+
+            students: results
+
+        });
+
+    });
 
 };
 
-// =========================================
-// Get One Student
-// =========================================
+// ===========================================================
+// GET STUDENT BY ID
+// ===========================================================
+
 exports.getStudentById = (req, res) => {
 
     const id = req.params.id;
 
     db.query(
+
         "SELECT * FROM students WHERE id = ?",
+
         [id],
+
         (err, results) => {
 
             if (err) {
+
                 return res.status(500).json({
+
                     success: false,
+
                     message: err.message
+
                 });
+
             }
 
             if (results.length === 0) {
+
                 return res.status(404).json({
+
                     success: false,
+
                     message: "Student not found."
+
                 });
+
             }
 
             res.json({
+
                 success: true,
+
                 student: results[0]
+
             });
 
         }
+
     );
 
 };
 
-// =========================================
-// Update Student
-// =========================================
+// ===========================================================
+// UPDATE STUDENT
+// ===========================================================
+
 exports.updateStudent = (req, res) => {
 
     const id = req.params.id;
 
     const {
+
         admission_number,
         first_name,
         last_name,
@@ -149,6 +200,7 @@ exports.updateStudent = (req, res) => {
         phone,
         email,
         address
+
     } = req.body;
 
     const sql = `
@@ -167,8 +219,11 @@ exports.updateStudent = (req, res) => {
     `;
 
     db.query(
+
         sql,
+
         [
+
             admission_number,
             first_name,
             last_name,
@@ -179,51 +234,75 @@ exports.updateStudent = (req, res) => {
             email,
             address,
             id
+
         ],
+
         (err) => {
 
             if (err) {
+
                 return res.status(500).json({
+
                     success: false,
+
                     message: err.message
+
                 });
+
             }
 
             res.json({
+
                 success: true,
+
                 message: "Student updated successfully."
+
             });
 
         }
+
     );
 
 };
 
-// =========================================
-// Delete Student
-// =========================================
+// ===========================================================
+// DELETE STUDENT
+// ===========================================================
+
 exports.deleteStudent = (req, res) => {
 
     const id = req.params.id;
 
     db.query(
+
         "DELETE FROM students WHERE id = ?",
+
         [id],
+
         (err) => {
 
             if (err) {
+
                 return res.status(500).json({
+
                     success: false,
+
                     message: err.message
+
                 });
+
             }
 
             res.json({
+
                 success: true,
+
                 message: "Student deleted successfully."
+
             });
 
         }
+
     );
 
 };

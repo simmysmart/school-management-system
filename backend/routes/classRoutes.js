@@ -1,21 +1,22 @@
+// ===========================================================
+// File: classRoutes.js
+// ===========================================================
+
 const express = require("express");
 const router = express.Router();
 
+const authMiddleware = require("../middleware/authMiddleware");
+
 const classController = require("../controllers/classController");
 
-// Get all classes
-router.get("/", classController.getClasses);
+router.get("/", authMiddleware, classController.getClasses);
 
-// Get single class
-router.get("/:id", classController.getClassById);
+router.get("/:id", authMiddleware, classController.getClassById);
 
-// Add class
-router.post("/", classController.addClass);
+router.post("/", authMiddleware, classController.addClass);
 
-// Update class
-router.put("/:id", classController.updateClass);
+router.put("/:id", authMiddleware, classController.updateClass);
 
-// Delete class
-router.delete("/:id", classController.deleteClass);
+router.delete("/:id", authMiddleware, classController.deleteClass);
 
 module.exports = router;

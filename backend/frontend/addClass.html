@@ -3,13 +3,13 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add Class</title>
+    <title>Add Class</title>
 
-<link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
 
 </head>
 
@@ -26,7 +26,7 @@
 
             <li><a href="dashboard.html">Dashboard</a></li>
 
-            <li><a href="students.html"> Students</a></li>
+            <li><a href="students.html">Students</a></li>
 
             <li><a href="addStudent.html">Add Student</a></li>
 
@@ -35,9 +35,22 @@
             <li><a href="addTeacher.html">Add Teacher</a></li>
 
             <li><a href="classes.html">Classes</a></li>
+
+            <li><a href="addClass.html" class="active">Add Class</a></li>
+
+            <li><a href="subjects.html">Subjects</a></li>
+
+            <li><a href="addSubject.html">Add Subject</a></li>
+
             <li><a href="payments.html">Payments</a></li>
 
-            li><a href="addPayment.html">Add Payment</a></li>
+            <li><a href="addPayment.html">Add Payment</a></li>
+
+            <li><a href="results.html">Results</a></li>
+
+            <li><a href="addResult.html">Add Result</a></li>
+
+            <button class="logout-btn" onclick="logout()"> Logout</button>
 
         </ul>
 
@@ -73,10 +86,10 @@
 
                     <label>Class Teacher</label>
 
-                    <select id="class_teacher" required>
+                    <select id="class_teacher_id">
 
                         <option value="">
-                            Loading Teachers...
+                            Loading teachers...
                         </option>
 
                     </select>
@@ -86,14 +99,7 @@
                 <div id="message"></div>
 
                 <button
-                    type="submit"
-                    class="btn">
-
-                    Save Class
-
-                </button>
-
-            </form>
+                    type="submit" class="btn">  Save Class </button></form>
 
         </div>
 
@@ -101,7 +107,15 @@
 
 </div>
 
-<script src="addClass.js"></script>
+<!-- Global Scripts -->
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/logout.js"></script>
+
+<!-- Page Script -->
+<script src="js/addClass.js"></script>
 
 </body>
 

@@ -45,13 +45,24 @@ exports.getSubjects = (req, res) => {
 // =========================================
 exports.addSubject = (req, res) => {
 
-    const {
-        subject_name,
-        subject_code,
-        class_id,
-        teacher_id
-    } = req.body;
+   const {
+    subject_name,
+    subject_code,
+    class_id,
+    teacher_id
+} = req.body;
 
+if (!subject_name || !subject_code || !class_id) {
+
+    return res.status(400).json({
+
+        success: false,
+
+        message: "Subject name, code and class are required."
+
+    });
+
+}
     const sql = `
         INSERT INTO subjects
         (subject_name, subject_code, class_id, teacher_id)
@@ -121,6 +132,8 @@ exports.getSubjectById = (req, res) => {
 
 };
 
+
+// =========================================
 // =========================================
 // Update Subject
 // =========================================
@@ -133,6 +146,21 @@ exports.updateSubject = (req, res) => {
         teacher_id
     } = req.body;
 
+    // =========================================
+    // Validation
+    // =========================================
+    if (!subject_name || !subject_code || !class_id) {
+
+        return res.status(400).json({
+
+            success: false,
+
+            message: "Subject name, code and class are required."
+
+        });
+
+    }
+
     const sql = `
         UPDATE subjects
         SET
@@ -144,7 +172,9 @@ exports.updateSubject = (req, res) => {
     `;
 
     db.query(
+
         sql,
+
         [
             subject_name,
             subject_code,
@@ -152,27 +182,34 @@ exports.updateSubject = (req, res) => {
             teacher_id || null,
             req.params.id
         ],
+
         (err) => {
 
             if (err) {
 
                 return res.status(500).json({
+
                     success: false,
+
                     message: err.message
+
                 });
 
             }
 
             res.json({
+
                 success: true,
+
                 message: "Subject updated successfully."
+
             });
 
         }
+
     );
 
 };
-
 // =========================================
 // Delete Subject
 // =========================================

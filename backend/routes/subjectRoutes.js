@@ -1,31 +1,22 @@
+// ===========================================================
+// File: subjectRoutes.js
+// ===========================================================
+
 const express = require("express");
 const router = express.Router();
 
+const authMiddleware = require("../middleware/authMiddleware");
+
 const subjectController = require("../controllers/subjectController");
 
-// =========================================
-// Get All Subjects
-// =========================================
-router.get("/", subjectController.getSubjects);
+router.get("/", authMiddleware, subjectController.getSubjects);
 
-// =========================================
-// Add Subject
-// =========================================
-router.post("/", subjectController.addSubject);
+router.post("/", authMiddleware, subjectController.addSubject);
 
-// =========================================
-// Get Single Subject
-// =========================================
-router.get("/:id", subjectController.getSubjectById);
+router.get("/:id", authMiddleware, subjectController.getSubjectById);
 
-// =========================================
-// Update Subject
-// =========================================
-router.put("/:id", subjectController.updateSubject);
+router.put("/:id", authMiddleware, subjectController.updateSubject);
 
-// =========================================
-// Delete Subject
-// =========================================
-router.delete("/:id", subjectController.deleteSubject);
+router.delete("/:id", authMiddleware, subjectController.deleteSubject);
 
 module.exports = router;

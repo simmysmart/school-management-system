@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Results</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= Sidebar ================= -->
+
+    <div class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <img
+                src="images/logo.jpg"
+                alt="School Logo"
+                class="sidebar-school-logo"
+            >
+
+        </div>
+
+        <h2>School System</h2>
+
+        <ul>
+
+            <li><a href="dashboard.html">Dashboard</a></li>
+
+            <li><a href="students.html">Students</a></li>
+
+            <li><a href="teachers.html">Teachers</a></li>
+
+            <li><a href="classes.html">Classes</a></li>
+
+            <li><a href="subjects.html">Subjects</a></li>
+
+            <li><a href="attendance.html">Attendance</a></li>
+
+            <li><a href="fees.html">Fees</a></li>
+
+            <li><a href="payments.html">Payments</a></li>
+
+            <li><a href="results.html" class="active">Results</a></li>
+
+        </ul>
+
+    </div>
+
+    <!-- ================= Main ================= -->
+
+    <div class="main">
+
+        <div class="topbar">
+
+            <h1>Results</h1>
+
+            <a href="addResult.html" class="btn">
+
+                Add Result
+
+            </a>
+
+        </div>
+
+        <div class="table-container">
+
+            <table class="student-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Student</th>
+
+                        <th>Subject</th>
+
+                        <th>Term</th>
+
+                        <th>Session</th>
+
+                        <th>CA</th>
+
+                        <th>Exam</th>
+
+                        <th>Total</th>
+
+                        <th>Grade</th>
+
+                        <th>Remark</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="resultTable">
+
+                    <tr>
+
+                        <td colspan="10">
+
+                            Loading results...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Shared Scripts -->
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/logout.js"></script>
+
+<!-- Page Script -->
+
+<script src="js/results.js"></script>
+
+</body>
+
+</html>

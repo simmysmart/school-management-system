@@ -1,0 +1,27 @@
+.student-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+}
+
+.student-table th{
+
+    background:#2563EB;
+
+    color:white;
+
+}
+
+.student-table td,
+
+.student-table th{
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+}

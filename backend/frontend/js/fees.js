@@ -1,24 +1,49 @@
-const API_URL = "http://localhost:5000/api/fees";
+// ===========================================================
+// File: fees.js
+// Project: School Management System
+// Purpose:
+// Load, Edit and Delete Fees
+// ===========================================================
 
-// =======================================
-// Load Fees
-// =======================================
+// ===========================================================
+// LOAD FEES
+// ===========================================================
 
 async function loadFees() {
 
     const table = document.getElementById("feeTable");
 
+    table.innerHTML = `
+        <tr>
+            <td colspan="5">Loading fees...</td>
+        </tr>
+    `;
+
     try {
 
-        const response = await fetch(API_URL);
+        const result = await API.get("fees");
 
-        const result = await response.json();
+        // Token expired
+        if (
+            result.message === "Invalid token" ||
+            result.message === "Access denied"
+        ) {
+
+            localStorage.removeItem("token");
+
+            window.location.href = "login.html";
+
+            return;
+
+        }
 
         if (!result.success) {
 
             table.innerHTML = `
                 <tr>
-                    <td colspan="5">Unable to load fees.</td>
+                    <td colspan="5">
+                        Failed to load fees.
+                    </td>
                 </tr>
             `;
 
@@ -30,7 +55,9 @@ async function loadFees() {
 
             table.innerHTML = `
                 <tr>
-                    <td colspan="5">No fees found.</td>
+                    <td colspan="5">
+                        No fees found.
+                    </td>
                 </tr>
             `;
 
@@ -49,7 +76,7 @@ async function loadFees() {
 
                     <td>₦${Number(fee.amount).toLocaleString()}</td>
 
-                    <td>${fee.class_name}</td>
+                    <td>${fee.class_name || "Not Assigned"}</td>
 
                     <td>${new Date(fee.created_at).toLocaleDateString()}</td>
 
@@ -58,13 +85,17 @@ async function loadFees() {
                         <button
                             class="edit-btn"
                             onclick="editFee(${fee.id})">
+
                             Edit
+
                         </button>
 
                         <button
                             class="delete-btn"
                             onclick="deleteFee(${fee.id})">
+
                             Delete
+
                         </button>
 
                     </td>
@@ -84,7 +115,9 @@ async function loadFees() {
 
         table.innerHTML = `
             <tr>
-                <td colspan="5">Server connection failed.</td>
+                <td colspan="5">
+                    Unable to connect to server.
+                </td>
             </tr>
         `;
 
@@ -92,9 +125,9 @@ async function loadFees() {
 
 }
 
-// =======================================
-// Edit Fee
-// =======================================
+// ===========================================================
+// EDIT FEE
+// ===========================================================
 
 function editFee(id) {
 
@@ -102,9 +135,9 @@ function editFee(id) {
 
 }
 
-// =======================================
-// Delete Fee
-// =======================================
+// ===========================================================
+// DELETE FEE
+// ===========================================================
 
 async function deleteFee(id) {
 
@@ -112,13 +145,7 @@ async function deleteFee(id) {
 
     try {
 
-        const response = await fetch(API_URL + "/" + id, {
-
-            method: "DELETE"
-
-        });
-
-        const result = await response.json();
+        const result = await API.delete(`fees/${id}`);
 
         alert(result.message);
 
@@ -136,6 +163,12 @@ async function deleteFee(id) {
 
 }
 
-// Load data
+// ===========================================================
+// LOAD PAGE
+// ===========================================================
 
-loadFees();
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadFees();
+
+});

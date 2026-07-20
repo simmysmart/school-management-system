@@ -1,5 +1,11 @@
+// ===========================================================
+// File: teacherRoutes.js
+// ===========================================================
+
 const express = require("express");
 const router = express.Router();
+
+const authMiddleware = require("../middleware/authMiddleware");
 
 const {
     addTeacher,
@@ -9,19 +15,14 @@ const {
     deleteTeacher
 } = require("../controllers/teacherController");
 
-// Add Teacher
-router.post("/add", addTeacher);
+router.post("/add", authMiddleware, addTeacher);
 
-// Get All Teachers
-router.get("/", getTeachers);
+router.get("/", authMiddleware, getTeachers);
 
-// Get One Teacher
-router.get("/:id", getTeacherById);
+router.get("/:id", authMiddleware, getTeacherById);
 
-// Update Teacher
-router.put("/:id", updateTeacher);
+router.put("/:id", authMiddleware, updateTeacher);
 
-// Delete Teacher
-router.delete("/:id", deleteTeacher);
+router.delete("/:id", authMiddleware, deleteTeacher);
 
 module.exports = router;

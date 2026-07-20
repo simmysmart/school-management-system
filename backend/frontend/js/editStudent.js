@@ -1,22 +1,29 @@
-// =========================================
-// Edit Student
-// =========================================
+// ===========================================================
+// File: js/editStudent.js
+// Project: School Management System
+// ===========================================================
 
-// Get Student ID from URL
+// Get Student ID
 const params = new URLSearchParams(window.location.search);
 const studentId = params.get("id");
 
-// =========================================
-// Load Student Information
-// =========================================
+if (!studentId) {
+
+    alert("Student ID not found.");
+
+    window.location.href = "students.html";
+
+}
+
+// ===========================================================
+// LOAD STUDENT
+// ===========================================================
 
 async function loadStudent() {
 
     try {
 
-        const response = await fetch(`http://localhost:5000/api/students/${studentId}`);
-
-        const result = await response.json();
+        const result = await API.get(`students/${studentId}`);
 
         if (!result.success) {
 
@@ -52,9 +59,9 @@ async function loadStudent() {
 
 }
 
-// =========================================
-// Update Student
-// =========================================
+// ===========================================================
+// UPDATE STUDENT
+// ===========================================================
 
 document.getElementById("editForm").addEventListener("submit", async function (e) {
 
@@ -76,31 +83,23 @@ document.getElementById("editForm").addEventListener("submit", async function (e
 
     try {
 
-        const response = await fetch(`http://localhost:5000/api/students/${studentId}`, {
-
-            method: "PUT",
-
-            headers: {
-
-                "Content-Type": "application/json"
-
-            },
-
-            body: JSON.stringify(student)
-
-        });
-
-        const result = await response.json();
+        const result = await API.put(`students/${studentId}`, student);
 
         document.getElementById("message").innerHTML = result.message;
 
         if (result.success) {
+
+            document.getElementById("message").style.color = "green";
 
             setTimeout(() => {
 
                 window.location.href = "students.html";
 
             }, 1000);
+
+        } else {
+
+            document.getElementById("message").style.color = "red";
 
         }
 
@@ -110,9 +109,18 @@ document.getElementById("editForm").addEventListener("submit", async function (e
 
         console.error(error);
 
+        alert("Unable to update student.");
+
     }
 
 });
 
-// Load student when page opens
-loadStudent();
+// ===========================================================
+// START PAGE
+// ===========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadStudent();
+
+});
